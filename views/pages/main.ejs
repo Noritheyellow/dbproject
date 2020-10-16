@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko">
+<%- include('../partials/head'); %>
+<%- include('../partials/scripts'); %>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <%- include('../partials/nav'); %>
+    <%- include('../partials/sidebar'); %>
+    <%- include('../partials/contents/' + page); %>
+    <%- include('../partials/footer'); %>
+</div>
+
+<script src="javascripts/<%= page %>.js"></script>
+
+</body>
+</html>

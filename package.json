@@ -1,0 +1,30 @@
+{
+  "name": "dbproject",
+  "version": "0.0.0",
+  "description": "Docker + Nodejs + Nginx tutorial",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Noritheyellow/dbproject.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Noritheyellow/dbproject/issues"
+  },
+  "homepage": "https://github.com/Noritheyellow/dbproject#readme",
+  "dependencies": {
+    "admin-lte": "^3.0.5",
+    "devextreme": "20.1.6",
+    "cluster": "^0.7.7",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "os": "^0.1.1",
+    "uuid": "^8.3.1"
+  }
+}
