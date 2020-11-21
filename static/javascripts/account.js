@@ -60,7 +60,7 @@ $(function() {
         onRowInserted: event => {
             // customer_id로 delete
             console.log(event, " added");
-            if (event.key.customer_idx) {
+            if (event.key.account_idx) {
                 xhr.open('POST', '/account');
                 xhr.setRequestHeader('Content-type', 'application/json');
                 xhr.send(JSON.stringify(event.key));
@@ -70,13 +70,13 @@ $(function() {
         },
         onRowUpdated: event => {
             console.log(event, " updated");
-            xhr.open('PUT', `http://localhost:8080/account/${event.key.customer_idx}`);
+            xhr.open('PUT', `http://localhost:8080/account/${event.key.account_idx}`);
             xhr.setRequestHeader('Content-type', 'application/json');
             xhr.send(JSON.stringify(event.key));
         },
         onRowRemoved: event => {
             // 이건 http 방식이고 xhr에서는 send에다가 param을 넘겨줘야 한다.
-            xhr.open('DELETE', `http://localhost:8080/account/${event.key.customer_idx}`);
+            xhr.open('DELETE', `http://localhost:8080/account/${event.key.account_idx}`);
             xhr.setRequestHeader('Content-type', 'application/json');
             xhr.send(null);
         },
@@ -88,7 +88,8 @@ $(function() {
             {caption: "예금주 명", dataField: "account_name"},
             {caption: "예금주 전화번호", dataField: "account_phone"},
             {caption: "예금주 이메일", dataField: "account_email"},
-            {caption: "예금주 IDX", dataField: "customer_idx"}
+            {caption: "예금주 IDX", dataField: "customer_idx"},
+            {caption: "계좌 IDX", dataField: "account_idx"}
         ]
     })
 })
