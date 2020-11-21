@@ -93,6 +93,7 @@ const app = express();
 const route = require("./routes/route");
 const customer_route = require("./routes/customer_route");
 const card_route = require("./routes/card_route");
+const dealing_route = require("./routes/dealing_route");
 
 app.set("views", "./views");
 app.set("view engine", "ejs");
@@ -105,6 +106,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/", route);
 app.use("/customer", customer_route);
 app.use("/card", card_route);
+app.use("/dealing", dealing_route);
 // app.use('/account');
 // app.use('/dealing');
 
