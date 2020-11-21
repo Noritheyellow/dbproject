@@ -3,7 +3,7 @@ const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: process.env.DB_PASSWORD,
-  database: "dbproject",
+  database: "dbTest",
   dateStrings: "date",
 });
 
@@ -18,21 +18,35 @@ const getCardPage = (req, res, next) => {
 };
 
 // CREATE(ADD) 요청이 발생할 때, 요청자의 id와 accountid를 같이 insert 해주자.
-const addCard = (req, res) => {
+const addCard = async (req, res) => {
   console.log(req.body);
-  let { card_id, card_limit, card_type, card_reqdate, card_payment } = req.body;
-  console.log(card_id, card_limit, card_type, card_reqdate, card_payment);
-  connection.query(
-    'insert into Card values("' +
-      card_id +
-      '", "' +
-      card_limit +
-      '", "' +
-      card_type +
+  let {
+    card_idx,
+    card_limit,
+    card_type,
+    card_reqdate,
+    card_payment,
+    customer_idx,
+    account_idx
+  } = req.body;
+
+  console.log(card_idx, card_limit, card_type, card_reqdate, card_payment, customer_idx, account_idx);
+
+  await connection.query(
+    'insert into card values("' +
+      card_idx +
       '", "' +
       card_reqdate +
       '", "' +
+      card_limit +
+      '", "' +
       card_payment +
+      '", "' +
+      card_type +
+      '", "' +
+      customer_idx +
+      '", "' +
+      account_idx +
       '")'
   );
 
@@ -42,7 +56,7 @@ const addCard = (req, res) => {
 // READ
 const readCard = (req, res) => {
   console.log(req.body);
-  connection.query("select * from Card", (error, results, fields) => {
+  connection.query("select * from card", (error, results, fields) => {
     if (error) res.send(error);
     else {
       console.log(`${JSON.stringify(results)} data received!`);
@@ -53,15 +67,23 @@ const readCard = (req, res) => {
 
 // UPDATE
 const updateCard = (req, res) => {
-  console.log(req.body);
-  let { card_id, card_limit, card_type, card_reqdate, card_payment } = req.body;
+  const { idx } = req.params;
+  let {
+    card_idx,
+    card_limit,
+    card_type,
+    card_reqdate,
+    card_payment,
+    customer_idx,
+    account_idx
+  } = req.body;
 
   // 특수한 함수를 사용하면 좀 덜 복잡하게 할 수 있을 거 같긴 한데...
   // 생년월일은 포맷을 맞추어줘야 할 듯 하다.
   connection.query(
-    "update Card set " +
-      'card_id = "' +
-      card_id +
+    "update card set " +
+      'card_idx = "' +
+      card_idx +
       '", ' +
       'card_limit = "' +
       card_limit +
@@ -74,18 +96,22 @@ const updateCard = (req, res) => {
       '", ' +
       'card_payment = "' +
       card_payment +
-      '"'
+      '", ' +
+      'customer_idx = "' +
+      customer_idx +
+      '", ' +
+      'account_idx = "' +
+      account_idx +
+      '" where card_idx = "' + idx +'"'
   );
   readCard(req, res);
 };
 
 // DELETE
 const deleteCard = (req, res) => {
-  console.log(req.body);
-  const { customer_id } = req.body;
-  console.log("check" + customer_id);
+  const { idx } = req.params;
 
-  connection.query('delete from Customer where customer_id = "' + customer_id + '"');
+  connection.query('delete from card where card_idx = "' + idx + '"');
   readCard(req, res);
 };
 

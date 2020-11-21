@@ -3,7 +3,7 @@ const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: process.env.DB_PASSWORD,
-  database: "dbproject",
+  database: "dbTest",
   dateStrings: "date",
 });
 
@@ -20,17 +20,18 @@ const getDealingPage = (req, res, next) => {
 // CREATE(ADD) 요청이 발생할 때, 요청자의 id와 accountid를 같이 insert 해주자.
 const addDealing = (req, res) => {
   let {
+    dealing_idx,
     amount,
     balance,
-    withdrawl_date,
     deposit_date,
-    account_idx,
+    withdrawl_date,
     account_type,
+    account_idx,
     account_detail,
   } = req.body;
   connection.query(
-    `INSERT INTO dealing( amount, balance, withdrawl_date, deposit_date, account_idx, account_type, account_detail) 
-    VALUES("${amount}","${balance}","${withdrawl_date}","${deposit_date}","${account_idx}","${account_type}","${account_detail}")`
+    `INSERT INTO dealing(dealing_idx, amount, balance, withdrawl_date, deposit_date, account_idx, account_type, account_detail) 
+    VALUES("${dealing_idx}","${amount}","${balance}","${withdrawl_date}","${deposit_date}","${account_idx}","${account_type}","${account_detail}")`
   );
 
   readAllDealing(req, res);
@@ -65,18 +66,19 @@ const updateDealing = (req, res) => {
   console.log(req.body);
   const { idx } = req.params;
   let {
+    dealing_idx,
     amount,
     balance,
-    withdrawl_date,
     deposit_date,
-    account_idx,
+    withdrawl_date,
     account_type,
+    account_idx,
     account_detail,
   } = req.body;
 
   connection.query(
     `UPDATE dealing 
-    SET amount = "${amount}", balance = "${balance}", withdrawl_date = "${withdrawl_date}", 
+    SET dealing_idx = "${dealing_idx}", amount = "${amount}", balance = "${balance}", withdrawl_date = "${withdrawl_date}", 
       deposit_date = "${deposit_date}", account_idx = "${account_idx}", account_type = "${account_type}", account_detail = "${account_detail}"
     WHERE dealing_idx = "${idx}"`
   );

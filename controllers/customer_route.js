@@ -3,13 +3,13 @@ const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: process.env.DB_PASSWORD,
-  database: "dbproject",
+  database: "dbTest",
   dateStrings: "date",
 });
 
 connection.connect();
 
-const getCustomerPage = (req, res, next) => {
+const getCustomerPage = (req, res) => {
   res.render("pages/main", {
     user: "testUser",
     photo: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
@@ -21,6 +21,7 @@ const getCustomerPage = (req, res, next) => {
 const addCustomer = (req, res) => {
   console.log(req.body);
   let {
+    customer_idx,
     customer_id,
     customer_name,
     customer_address,
@@ -54,7 +55,9 @@ const addCustomer = (req, res) => {
   customer_job +
   '")');
   connection.query(
-    'insert into customer(customer_id, customer_name, customer_address, customer_birthday, customer_email, customer_phone, customer_job) values("' +
+    'insert into customer(customer_idx, customer_id, customer_name, customer_address, customer_birthday, customer_email, customer_phone, customer_job) values("' +
+      customer_idx +
+      '", "' +
       customer_id +
       '", "' +
       customer_name +
@@ -77,13 +80,9 @@ const addCustomer = (req, res) => {
 // READ
 const readCustomer = (req, res) => {
   console.log(req.body);
-  connection.query("select * from Customer", (error, results, fields) => {
-    if (error) {
-      res.send(error);
-      console.log(error);
-    }
+  connection.query("select * from customer", (error, results, fields) => {
+    if (error) res.send(error);
     else {
-      console.log(`${results[0]["customer_birthday"]}`);
       console.log(`${JSON.stringify(results)} data received!`);
       res.send(JSON.stringify(results));
     }
@@ -94,6 +93,7 @@ const readCustomer = (req, res) => {
 const updateCustomer = (req, res) => {
   console.log(req.body);
   let {
+    customer_idx,
     customer_id,
     customer_name,
     customer_address,
@@ -106,7 +106,10 @@ const updateCustomer = (req, res) => {
   // 특수한 함수를 사용하면 좀 덜 복잡하게 할 수 있을 거 같긴 한데...
   // 생년월일은 포맷을 맞추어줘야 할 듯 하다.
   connection.query(
-    "update Customer set " +
+    "update customer set " +
+      'customer_idx = "' +
+      customer_idx +
+      '", ' +
       'customer_name = "' +
       customer_name +
       '", ' +
@@ -138,7 +141,7 @@ const deleteCustomer = (req, res) => {
   const { customer_id } = req.body;
   console.log("check" + customer_id);
 
-  connection.query('delete from Customer where customer_id = "' + customer_id + '"');
+  connection.query('delete from customer where customer_id = "' + customer_id + '"');
   readCustomer(req, res);
 };
 

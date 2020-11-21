@@ -11,12 +11,17 @@ router.post('/', cardFunctions.addCard);
 
 router.post('/read', cardFunctions.readCard);
 
-router.post('/update', cardFunctions.updateCard);
+router.put('/:idx', cardFunctions.updateCard);
 
 // delete
-router.post('/delete', cardFunctions.deleteCard);
+router.delete('/:idx', cardFunctions.deleteCard);
 
 // put = 전체를 overwrite 한다. patch = 부분적으로 overwrite 한다.
 // router.patch('/:id', (req, res) => {}));
+
+/*// 전체 조회
+router.post("/readAll", accountController.readAllAccount);
+// 1개 조회
+router.get("/:idx", accountController.readAccount);*/
 
 module.exports = router;

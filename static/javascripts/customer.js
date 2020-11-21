@@ -5,13 +5,13 @@ xhr.onreadystatechange = function() {
     if (xhr.readyState === xhr.DONE) {
         if (xhr.status === 200 || xhr.status === 201) {
             console.log(xhr.responseText);
-            localStorage.setItem('receivedData', xhr.responseText);
+            localStorage.setItem('customerData', xhr.responseText);
         } else {
             console.log(xhr.responseText);
         }
     }
 }
-let datasource = JSON.parse(localStorage.getItem('receivedData'));
+let datasource = JSON.parse(localStorage.getItem('customerData'));
 
 $(function() {
     xhr.open('POST', '/customer/read');
@@ -20,7 +20,7 @@ $(function() {
         msg : "send data from home"
     }));
 
-    console.log(localStorage.getItem('receivedData'));
+    console.log(localStorage.getItem('customerData'));
     let dataGrid = $('#gridContainer').dxDataGrid({
         dataSource: datasource,
         allowColumnResizing: true,
@@ -79,6 +79,7 @@ $(function() {
             xhr.send(JSON.stringify(event.key));
         },
         columns : [
+            {caption: "고객 IDX", dataField: "customer_idx"},
             {caption: "주민번호", dataField: "customer_id"},
             {caption: "이름", dataField: "customer_name"},
             {caption: "주소", dataField: "customer_address"},
