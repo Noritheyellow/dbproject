@@ -4,7 +4,7 @@ const homeFunctions = require('../controllers/route.js');
 
 router.get('/', homeFunctions.getHomepage)
 
-router.post('/', homeFunctions.postHomepage)
+router.post('/read', homeFunctions.postHomepage)
 
 // connection.end();
 

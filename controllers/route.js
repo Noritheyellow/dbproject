@@ -3,7 +3,7 @@ const connection = mysql.createConnection({
     host : 'localhost',
     user : 'root',
     password : '1q2w3e4r!@',
-    database : 'test'
+    database : 'dbproject'
 });
 
 connection.connect();
@@ -18,7 +18,7 @@ const getHomepage = (req, res, next) => {
 
 const postHomepage = (req, res) => {
     console.log(req.body);
-    connection.query('select * from planning_dept', (error, results, fields) => {
+    connection.query('select * from Customer', (error, results, fields) => {
         if (error) res.send(error);
         else {
             console.log(`${JSON.stringify(results)} data received!`);

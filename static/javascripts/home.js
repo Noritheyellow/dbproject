@@ -1,3 +1,4 @@
+/*
 let xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function() {
     if (xhr.readyState === xhr.DONE) {
@@ -9,7 +10,7 @@ xhr.onreadystatechange = function() {
         }
     }
 }
-xhr.open('POST', '/');
+xhr.open('POST', '/read');
 xhr.setRequestHeader('Content-type', 'application/json');
 xhr.send(JSON.stringify({
     msg : "send data from home"
@@ -19,4 +20,4 @@ xhr.send(JSON.stringify({
 let test = document.getElementsByClassName('card-text');
 console.log(test);
 console.log(localStorage.getItem('receivedData'));
-test[0].innerHTML = localStorage.getItem('receivedData');
+test[0].innerHTML = localStorage.getItem('receivedData');*/
