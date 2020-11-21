@@ -3,7 +3,7 @@ const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: process.env.DB_PASSWORD,
-  database: "dbproject",
+  database: "dbTest",
   dateStrings: "date",
 });
 
@@ -29,6 +29,13 @@ const addAccount = async (req, res) => {
     customer_idx,
     card_requested,
   } = req.body;
+
+  if (!customer_idx) {
+    console.log(`customer_idx를 입력하십시오`);
+    return;
+  }
+  // 만약 customer_idx가 존재하더라도 그것이 실존한다는 보장은 없으므로 확인 필요
+
   await connection.query(
     `INSERT INTO account( account_date, account_name, account_phone, account_email, account_balance, account_type, customer_idx, card_requested) 
     VALUES("${account_date}","${account_name}","${account_phone}","${account_email}","${account_balance}","${account_type}","${customer_idx}", "${card_requested}")`
