@@ -109,8 +109,6 @@ app.use("/customer", customer_route);
 app.use("/account", account_route);
 app.use("/card", card_route);
 app.use("/dealing", dealing_route);
-// app.use('/account');
-// app.use('/dealing');
 
 const port = process.env.PORT || 8080;
 let server = app.listen(port, () => {

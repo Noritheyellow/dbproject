@@ -22,7 +22,7 @@ $(function() {
 
     console.log(localStorage.getItem('cardData'));
     let dataGrid = $('#gridContainer').dxDataGrid({
-        dataSource: datasource,
+        dataSource: datasource? datasource : {},
         allowColumnResizing: true,
         columnAutoWidth: true,
         columnResizingMode: "widget",
@@ -66,27 +66,24 @@ $(function() {
             xhr.send(JSON.stringify(event.key));
         },
         onRowUpdated: event => {
-            console.log(event, " updated");
-            console.log(event.key.card_id, "check");
-            xhr.open('POST', `/card/update`);
+            xhr.open('PUT', `http://localhost:8080/card/${event.key.card_idx}`);
             xhr.setRequestHeader('Content-type', 'application/json');
             xhr.send(JSON.stringify(event.key));
         },
         onRowRemoved: event => {
-            console.log(event.key.card_id, " deleted");
             // 이건 http 방식이고 xhr에서는 send에다가 param을 넘겨줘야 한다.
-            xhr.open('POST', `/card/delete`);
+            xhr.open('DELETE', `http://localhost:8080/card/${event.key.card_idx}`);
             xhr.setRequestHeader('Content-type', 'application/json');
-            xhr.send(JSON.stringify(event.key));
+            xhr.send(null);
         },
         columns : [
-            {caption: "카드번호", dataField: "card_id"},
-            {caption: "카드 소지자", dataField: ""},
-            {caption: "카드 연결 계좌", dataField: ""},
+            {caption: "카드번호", dataField: "card_idx"},
             {caption: "카드 한도 금액", dataField: "card_limit"},
             {caption: "카드 종류", dataField: "card_type"},
             {caption: "카드 신청 일자", dataField: "card_reqdate"},
-            {caption: "카드 결제 일자", dataField: "card_payment"}
+            {caption: "카드 결제 일자", dataField: "card_payment"},
+            {caption: "카드 소유자 IDX", dataField: "customer_idx"},
+            {caption: "카드 연결 계좌 IDX", dataField: "account_idx"}
         ]
     })
 })
