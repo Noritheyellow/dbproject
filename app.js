@@ -87,27 +87,30 @@ else if(cluster.isWorker) {
         console.log(`Hello I'm Worker ${cluster.worker.id} running from ${masterID} server`);
     });
 }*/
-const express = require('express');
+require("dotenv").config();
+const express = require("express");
 const app = express();
-const route = require('./routes/route');
-const customer_route = require('./routes/customer_route');
-const card_route = require('./routes/card_route');
+const route = require("./routes/route");
+const customer_route = require("./routes/customer_route");
+const card_route = require("./routes/card_route");
+const dealing_route = require("./routes/dealing_route");
 
-app.set('views', './views');
-app.set('view engine', 'ejs');
+app.set("views", "./views");
+app.set("view engine", "ejs");
 
-app.use(express.static('static'));
-app.use(express.static('node_modules'));
+app.use(express.static("static"));
+app.use(express.static("node_modules"));
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 
-app.use('/', route);
-app.use('/customer', customer_route);
-app.use('/card', card_route);
+app.use("/", route);
+app.use("/customer", customer_route);
+app.use("/card", card_route);
+app.use("/dealing", dealing_route);
 // app.use('/account');
 // app.use('/dealing');
 
 const port = process.env.PORT || 8080;
 let server = app.listen(port, () => {
-    console.log(`Nodemon watching Web server in Ubuntu 20.04.1 LTS started at PORT:${port}`);
+  console.log(`Nodemon watching Web server in Ubuntu 20.04.1 LTS started at PORT:${port}`);
 });

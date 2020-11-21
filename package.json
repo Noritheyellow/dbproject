@@ -4,7 +4,7 @@
   "description": "Docker + Nodejs + Nginx tutorial",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "nodemon app.js .env",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,11 +19,14 @@
   "homepage": "https://github.com/Noritheyellow/dbproject#readme",
   "dependencies": {
     "admin-lte": "^3.0.5",
-    "devextreme": "20.1.6",
     "cluster": "^0.7.7",
+    "cross-env": "^7.0.2",
+    "devextreme": "20.1.6",
+    "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "mysql": "^2.18.1",
+    "nodemon": "^2.0.6",
     "os": "^0.1.1",
     "uuid": "^8.3.1"
   }
