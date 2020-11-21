@@ -38,8 +38,23 @@ const addCustomer = (req, res) => {
     customer_phone,
     customer_job
   );
+  console.log('insert into Customer values("' +
+  customer_id +
+  '", "' +
+  customer_name +
+  '", "' +
+  customer_address +
+  '", "' +
+  customer_birthday +
+  '", "' +
+  customer_email +
+  '", "' +
+  customer_phone +
+  '", "' +
+  customer_job +
+  '")');
   connection.query(
-    'insert into Customer values("' +
+    'insert into customer(customer_id, customer_name, customer_address, customer_birthday, customer_email, customer_phone, customer_job) values("' +
       customer_id +
       '", "' +
       customer_name +
@@ -63,7 +78,10 @@ const addCustomer = (req, res) => {
 const readCustomer = (req, res) => {
   console.log(req.body);
   connection.query("select * from Customer", (error, results, fields) => {
-    if (error) res.send(error);
+    if (error) {
+      res.send(error);
+      console.log(error);
+    }
     else {
       console.log(`${results[0]["customer_birthday"]}`);
       console.log(`${JSON.stringify(results)} data received!`);
