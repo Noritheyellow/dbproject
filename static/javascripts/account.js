@@ -85,9 +85,6 @@ $(function() {
             {caption: "계좌 잔고", dataField: "account_balance"},
             {caption: "카드 신청 여부", dataField: "card_requested"},
             {caption: "계좌 개설 일자", dataField: "account_date"},
-            {caption: "예금주 명", dataField: "account_name"},
-            {caption: "예금주 전화번호", dataField: "account_phone"},
-            {caption: "예금주 이메일", dataField: "account_email"},
             {caption: "예금주 IDX", dataField: "customer_idx"},
             {caption: "계좌 IDX", dataField: "account_idx"}
         ]

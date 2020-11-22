@@ -22,9 +22,6 @@ const addAccount = async (req, res) => {
   let {
     account_idx,
     account_date,
-    account_name,
-    account_phone,
-    account_email,
     account_balance,
     account_type,
     customer_idx,
@@ -38,8 +35,8 @@ const addAccount = async (req, res) => {
   // 만약 customer_idx가 존재하더라도 그것이 실존한다는 보장은 없으므로 확인 필요
 
   await connection.query(
-    `INSERT INTO account(account_idx, account_date, account_name, account_phone, account_email, account_balance, account_type, customer_idx, card_requested) 
-    VALUES("${account_idx}","${account_date}","${account_name}","${account_phone}","${account_email}","${account_balance}","${account_type}","${customer_idx}", "${card_requested}")`
+    `INSERT INTO account(account_idx, account_date, account_balance, account_type, customer_idx, card_requested) 
+    VALUES("${account_idx}","${account_date}","${account_balance}","${account_type}","${customer_idx}", "${card_requested}")`
   );
 
   readAllAccount(req, res);
@@ -74,9 +71,6 @@ const updateAccount = (req, res) => {
   let {
     account_idx,
     account_date,
-    account_name,
-    account_phone,
-    account_email,
     account_balance,
     account_type,
     customer_idx,
@@ -85,8 +79,7 @@ const updateAccount = (req, res) => {
 
   connection.query(
     `UPDATE account 
-    SET account_idx = "${account_idx}", account_date = "${account_date}", account_name = "${account_name}", account_phone = "${account_phone}", 
-      account_email = "${account_email}", account_balance = "${account_balance}", account_type = "${account_type}",
+    SET account_idx = "${account_idx}", account_date = "${account_date}", account_balance = "${account_balance}", account_type = "${account_type}",
       customer_idx = "${customer_idx}", card_requested = "${card_requested}"
     WHERE account_idx = "${idx}"`
   );
