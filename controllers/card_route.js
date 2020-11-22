@@ -30,16 +30,6 @@ const addCard = async (req, res) => {
     account_idx,
   } = req.body;
 
-  console.log(
-    card_idx,
-    card_limit,
-    card_type,
-    card_reqdate,
-    card_payment,
-    customer_idx,
-    account_idx
-  );
-
   await connection.query(
     'insert into card values("' +
       card_idx +

@@ -87,9 +87,7 @@ const updateDealing = (req, res) => {
 
 // DELETE
 const deleteDealing = (req, res) => {
-  console.log(req.body);
   const { idx } = req.params;
-  console.log({ idx });
 
   connection.query(`DELETE FROM dealing WHERE dealing_idx = "${idx}"`);
   readAllDealing(req, res);
