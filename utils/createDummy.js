@@ -88,29 +88,35 @@ const initDatabase = async () => {
   }
   console.log("[RESET] card success");
 
-  for (let i = 1; i <= 10000; i++) {
-    let [withdrawl_date, deposit_date, account_detail] = [
-      getRandomDate(2019, 2021),
-      getRandomDate(2019, 2021),
+  for (let i = 1; i <= 1000; i++) {
+    let [account_detail, index, amount, withdrawl_date, deposit_date] = [
       `사용내역${i}`,
+      getRandomInt(1, 101) - 1,
+      getRandomInt(1, 100000),
+      null,
+      null,
     ];
-    let index = getRandomInt(1, 101) - 1;
-    let amount = getRandomInt(1, 100000);
     let balance, account_type;
     if (accountList[index].account_balance - amount > 0) {
       balance = accountList[index].account_balance - amount;
       account_type = "출금";
+      withdrawl_date = getRandomDate(2019, 2021);
+      accountList[index].account_balance = balance;
+      await connection.query(
+        `INSERT INTO dealing(amount, balance, withdrawl_date, account_idx, account_type, account_detail)
+        VALUES('${amount}','${balance}','${withdrawl_date}','${accountList[index].account_idx}','${account_type}','${account_detail}')`
+      );
     } else {
       amount *= 10;
       balance = accountList[index].account_balance + amount;
       account_type = "입금";
+      deposit_date = getRandomDate(2019, 2021);
+      accountList[index].account_balance = balance;
+      await connection.query(
+        `INSERT INTO dealing(amount, balance, deposit_date, account_idx, account_type, account_detail)
+        VALUES('${amount}','${balance}','${deposit_date}','${accountList[index].account_idx}','${account_type}','${account_detail}')`
+      );
     }
-    accountList[index].account_balance = balance;
-
-    await connection.query(
-      `INSERT INTO dealing(amount, balance, withdrawl_date, deposit_date, account_idx, account_type, account_detail)
-      VALUES('${amount}','${balance}','${withdrawl_date}','${deposit_date}','${accountList[index].account_idx}','${account_type}','${account_detail}')`
-    );
   }
   console.log("[RESET] dealing success");
 

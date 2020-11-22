@@ -3,7 +3,7 @@ const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: process.env.DB_PASSWORD,
-  database: "dbTest",
+  database: "dbproject",
   dateStrings: "date",
 });
 
@@ -87,12 +87,25 @@ const updateDealing = (req, res) => {
 
 // DELETE
 const deleteDealing = (req, res) => {
-  console.log(req.body);
   const { idx } = req.params;
-  console.log({ idx });
 
   connection.query(`DELETE FROM dealing WHERE dealing_idx = "${idx}"`);
   readAllDealing(req, res);
+};
+
+const getYearDealingCount = (req, res) => {
+  const { year } = req.query;
+  const SQL = `SELECT * FROM dealing 
+  WHERE DATE(withdrawl_date) BETWEEN '${year}-01-01' AND '${year}-12-31'
+  ORDER BY withdrawl_date ASC`;
+
+  connection.query(SQL, (error, results, fields) => {
+    if (error) res.send(error);
+    else {
+      console.log(`${JSON.stringify(results)} data received!`);
+      res.send(JSON.stringify(results));
+    }
+  });
 };
 
 module.exports = {
@@ -102,4 +115,5 @@ module.exports = {
   readDealing,
   updateDealing,
   deleteDealing,
+  getYearDealingCount,
 };

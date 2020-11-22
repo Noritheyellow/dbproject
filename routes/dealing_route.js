@@ -5,6 +5,8 @@ const dealingController = require("../controllers/dealing_controller");
 // start with /plan
 // uuid를 사용하면 고유한 ID를 만들 수 있다. DB ID로 사용하면 유용할 듯
 // route middleware 함수는 controller에 보낸다.
+
+router.get("/year", dealingController.getYearDealingCount);
 router.get("/", dealingController.getDealingPage);
 
 router.post("/", dealingController.addDealing);

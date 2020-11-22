@@ -30,13 +30,16 @@ const addAccount = async (req, res) => {
 
 // READ ALL
 const readAllAccount = (req, res) => {
-  connection.query("select * from account", (error, results, fields) => {
-    if (error) res.send(error);
-    else {
-      console.log(`${JSON.stringify(results)} data received!`);
-      res.send(JSON.stringify(results));
+  connection.query(
+    "select * from account LEFT JOIN customer ON account.customer_idx = customer.customer_idx",
+    (error, results, fields) => {
+      if (error) res.send(error);
+      else {
+        console.log(`${JSON.stringify(results)} data received!`);
+        res.send(JSON.stringify(results));
+      }
     }
-  });
+  );
 };
 
 // READ
