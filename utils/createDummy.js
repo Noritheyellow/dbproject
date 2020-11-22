@@ -88,7 +88,7 @@ const initDatabase = async () => {
   }
   console.log("[RESET] card success");
 
-  for (let i = 1; i <= 10000; i++) {
+  for (let i = 1; i <= 1000; i++) {
     let [withdrawl_date, deposit_date, account_detail] = [
       getRandomDate(2019, 2021),
       getRandomDate(2019, 2021),
