@@ -82,6 +82,16 @@ $(function () {
       xhr.setRequestHeader("Content-type", "application/json");
       xhr.send(null);
     },
+    columns: [
+      { caption: "계좌 종류", dataField: "account_type" },
+      { caption: "계좌 잔고", dataField: "account_balance" },
+      { caption: "카드 신청 여부", dataField: "card_requested" },
+      { caption: "계좌 개설 일자", dataField: "account_date" },
+      { caption: "예금주 명", dataField: "customer_name" },
+      { caption: "예금주 전화번호", dataField: "customer_phone" },
+      { caption: "예금주 이메일", dataField: "customer_email" },
+      { caption: "예금주 IDX", dataField: "customer_idx" },
+      { caption: "계좌 IDX", dataField: "account_idx" },
     ],
   });
 });
