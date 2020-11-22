@@ -39,6 +39,21 @@ const addCustomer = (req, res) => {
     customer_phone,
     customer_job
   );
+  console.log('insert into Customer values("' +
+  customer_id +
+  '", "' +
+  customer_name +
+  '", "' +
+  customer_address +
+  '", "' +
+  customer_birthday +
+  '", "' +
+  customer_email +
+  '", "' +
+  customer_phone +
+  '", "' +
+  customer_job +
+  '")');
   connection.query(
     'insert into customer(customer_idx, customer_id, customer_name, customer_address, customer_birthday, customer_email, customer_phone, customer_job) values("' +
       customer_idx +
