@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js .env",
+    "start_reset": "cross-env NODE_ENV=reset node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

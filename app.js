@@ -90,6 +90,7 @@ else if(cluster.isWorker) {
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const initDatabase = require("./utils/createDummy");
 const route = require("./routes/route");
 const customer_route = require("./routes/customer_route");
 const card_route = require("./routes/card_route");
@@ -103,6 +104,8 @@ app.use(express.static("static"));
 app.use(express.static("node_modules"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+process.env.NODE_ENV === "reset" && initDatabase();
 
 app.use("/", route);
 app.use("/customer", customer_route);

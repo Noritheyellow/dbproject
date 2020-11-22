@@ -3,7 +3,7 @@ const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: process.env.DB_PASSWORD,
-  database: "dbTest",
+  database: "dbproject",
   dateStrings: "date",
 });
 
@@ -27,10 +27,8 @@ const addCard = async (req, res) => {
     card_reqdate,
     card_payment,
     customer_idx,
-    account_idx
+    account_idx,
   } = req.body;
-
-  console.log(card_idx, card_limit, card_type, card_reqdate, card_payment, customer_idx, account_idx);
 
   await connection.query(
     'insert into card values("' +
@@ -75,7 +73,7 @@ const updateCard = (req, res) => {
     card_reqdate,
     card_payment,
     customer_idx,
-    account_idx
+    account_idx,
   } = req.body;
 
   // 특수한 함수를 사용하면 좀 덜 복잡하게 할 수 있을 거 같긴 한데...
@@ -102,7 +100,9 @@ const updateCard = (req, res) => {
       '", ' +
       'account_idx = "' +
       account_idx +
-      '" where card_idx = "' + idx +'"'
+      '" where card_idx = "' +
+      idx +
+      '"'
   );
   readCard(req, res);
 };
