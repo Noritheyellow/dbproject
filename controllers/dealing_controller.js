@@ -93,6 +93,21 @@ const deleteDealing = (req, res) => {
   readAllDealing(req, res);
 };
 
+const getYearDealingCount = (req, res) => {
+  const { year } = req.query;
+  const SQL = `SELECT * FROM dealing 
+  WHERE DATE(withdrawl_date) BETWEEN '${year}-01-01' AND '${year}-12-31'
+  ORDER BY withdrawl_date ASC`;
+
+  connection.query(SQL, (error, results, fields) => {
+    if (error) res.send(error);
+    else {
+      console.log(`${JSON.stringify(results)} data received!`);
+      res.send(JSON.stringify(results));
+    }
+  });
+};
+
 module.exports = {
   getDealingPage,
   addDealing,
@@ -100,4 +115,5 @@ module.exports = {
   readDealing,
   updateDealing,
   deleteDealing,
+  getYearDealingCount,
 };
